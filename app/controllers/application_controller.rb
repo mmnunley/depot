@@ -5,13 +5,14 @@ class ApplicationController < ActionController::Base
   private 
 
   def current_cart
-  	#This finds the :cart_id from the 
-  	#session object and attempts to find 
+    #Adds a counter to the session for display of items in the cart
     if session[:counter].nil?
       session[:counter] = 1
     else
       session[:counter] += 1
     end
+  	#This finds the :cart_id from the 
+  	#session object and attempts to find 
   	#the cart corresponding to this ID. 
   	Cart.find(session[:cart_id])
   	#If no such object is found the rescue catches it

@@ -5,4 +5,9 @@ class LineItem < ActiveRecord::Base
 	#cart and product rows exist.
 	belongs_to :product
 	belongs_to :cart
+
+	def total_price
+		#Takes the price times quantity for line item total
+		product.price * quantity
+	end
 end

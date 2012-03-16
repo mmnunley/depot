@@ -45,15 +45,14 @@ class LineItemsController < ApplicationController
     #We use params to get the product ID from the request
     #This is stored locally as no need to let view see it
     product = Product.find(params[:product_id])
-    #Pass the product that was found into @cart.line_items.build
-    #this causes new line item relationship to be built 
-    #between the @cart object and the product
-    @line_item = @cart.line_items.build(:product => product)
-    #@line_item = LineItem.new(params[:line_item])
+    
+    #Adds an item to the cart using the "add_product" 
+    #function in the "cart.rb" file.
+    @line_item = @cart.add_product(product.id)
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
+        format.html { redirect_to @line_item.cart }
         format.json { render json: @line_item, status: :created, location: @line_item }
       else
         format.html { render action: "new" }

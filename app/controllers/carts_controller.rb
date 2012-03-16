@@ -13,11 +13,22 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
-    @cart = Cart.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @cart }
+    #similar to try catch in ASP.NET
+    begin
+      @cart = Cart.find(params[:id])
+      #If the cart is not found then this error catches it
+    rescue ActiveRecord::RecordNotFound
+      #adds the error to the log
+      logger.error "Attempt to access invalid cart #{params[:id]}"
+      #redirects the user to the store main page and sends
+      #a flash or alert to keep through the session called
+      #notice for invalid cart
+      redirect_to store_url, :notice => 'Invalid cart'
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @cart }
+      end
     end
   end
 
@@ -72,12 +83,16 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
-    @cart = Cart.find(params[:id])
+    #finds only the current cart to destroy and not all carts
+    @cart = current_cart
+    #destroys the cart
     @cart.destroy
+    session[:cart_id] = nil
 
     respond_to do |format|
-      format.html { redirect_to carts_url }
-      format.json { head :no_content }
+      format.html { redirect_to store_url, :notice => 
+      'Your cart is currently empty' }
+      format.json { head :ok }
     end
   end
 end
