@@ -22,7 +22,7 @@ class LineItemsControllerTest < ActionController::TestCase
     end
     #assigns gives us access to the variables that have been
     #(or can be) assigned by views.
-    assert_redirected_to cart_path(assigns(:line_item).cart)
+    assert_redirected_to store_path
   end
 
   test "should show line_item" do
@@ -36,8 +36,17 @@ class LineItemsControllerTest < ActionController::TestCase
   end
 
   test "should update line_item" do
-    put :update, id: @line_item, line_item: @line_item.attributes
-    assert_redirected_to line_item_path(assigns(:line_item))
+    # put :update, id: @line_item, line_item: @line_item.attributes
+    # assert_redirected_to line_item_path(assigns(:line_item))
+
+    assert_difference('LineItem.count') do
+      xhr :post, :create, :product_id => products(:ruby).id
+     end
+
+     assert_response :success
+     assert_select_jquery :html, '#cart' do
+       assert_select 'tr#current_item td', /Programming Ruby 1.9/
+     end
   end
 
   test "should destroy line_item" do
@@ -45,6 +54,21 @@ class LineItemsControllerTest < ActionController::TestCase
       delete :destroy, id: @line_item
     end
 
-    assert_redirected_to line_items_path
+    assert_redirected_to store_path
   end
+
+  test "should create line item via AJAX" do
+   
+     #xhr stands for XMLHttpRequest - instead of a redirect
+     #we expect a response containing a call to replace 
+     #the HTML for the cart.
+     assert_difference('LineItem.count') do
+      xhr :post, :create, :product_id => products(:ruby).id
+     end
+
+     assert_response :success
+     assert_select_jquery :html, '#cart' do
+       assert_select 'tr#current_item td', /Programming Ruby 1.9/
+   end
+ end
 end

@@ -47,4 +47,8 @@ class CartsControllerTest < ActionController::TestCase
 
     assert_redirected_to store_path
   end
+
+  test "should empty cart" do
+    
+  end
 end

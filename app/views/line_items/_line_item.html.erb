@@ -1,0 +1,15 @@
+<% if line_item == @current_item %>
+<tr id="current_item">
+<% else %>
+<tr>
+<% end %>
+	<!-- The "line_item" comes from the name of the file "_line_item" -->
+	<td><%= line_item.quantity %>&times;</td>
+	<td><%= line_item.product.title %></td>
+	<td class='item_price'><%= number_to_currency(line_item.total_price) %></td>
+	<tr>
+	<td><%= button_to 'Delete', line_item_path(line_item), :method => :delete, :remote => :true %></td>
+	<td><%= button_to 'Increase', increase_line_item_path(line_item), :remote => :true, :method => :put %></td>
+	<td><%= button_to 'Decrease', decrease_line_item_path(line_item), :remote => :true, :method => :put %></td>
+</tr>
+</tr>

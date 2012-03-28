@@ -6,11 +6,11 @@ class ApplicationController < ActionController::Base
 
   def current_cart
     #Adds a counter to the session for display of items in the cart
-    if session[:counter].nil?
-      session[:counter] = 1
-    else
-      session[:counter] += 1
-    end
+    # if session[:counter].nil?
+    #   session[:counter] = 1
+    # else
+    #   session[:counter] += 1
+    # end
   	#This finds the :cart_id from the 
   	#session object and attempts to find 
   	#the cart corresponding to this ID. 

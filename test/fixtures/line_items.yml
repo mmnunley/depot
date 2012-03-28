@@ -1,9 +1,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+# one:
+#   product_id: ruby
+#   cart_id: one
+
+# two:
+#   product_id: ruby
+#   cart_id: one
+#We removed the _id on each of them. This tells rails that the value
+#provided is no longer an actual numeric id; instead, the id attributed
+#should match the one in the record identified by the name provided
+
 one:
-  product_id: 1
-  cart_id: 1
+  product: ruby
+  order: one
 
 two:
-  product_id: 1
-  cart_id: 1
+  product: ruby
+  cart: one

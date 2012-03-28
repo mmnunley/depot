@@ -1,0 +1,23 @@
+// # $('#cart').html("<%=j render @cart %>");
+// if ($('#cart tr').length == 1) {$('#cart').show('blind', 1000)};}
+$("#notice").hide();
+
+if ($("#cart tr").length == 1) { 
+	$('#cart').show('blind', 1000);
+}
+
+
+$('#cart').html("<%= escape_javascript(render(@cart)) %>");
+// # page.replace_html('cart', render(@cart))
+//page[:current_item].visual_effect :highlight, :startcolor => "#88ff88", :endcolor => "#114411"
+
+$('#current_item').css({'background-color':'#88ff88'}).animate({'background-color':'#114411'}, 1300);
+
+// # The page variable is an instance of something called a 
+// # Javascript generator(Rails class that knows how to create
+// # JavaScript on the server and have it executed by browser)
+// # Here we are telling it to replace the content of the element
+// # on the current page with the id cart with the rendered partial
+// # for a given cart. The simple RJS template tells the browser
+// # to replace the content of the element whose id="cart" with
+// # that HTML.

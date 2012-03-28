@@ -1,11 +1,21 @@
 Depot::Application.routes.draw do
-  resources :line_items
+  resources :orders
 
+  resources :line_items do
+    put 'decrease', on: :member
+    put 'increase', on: :member
+  end
   resources :carts
 
   get "store/index"
 
-  resources :products
+  resources :products do
+    #This action will respond to HTTP GET requests and will operate
+    #on a member of the collection (in other words on an individual
+    #product) as opposed to the entire collection itself (which
+    #in this case would mean all products)
+    get :who_bought, :on => :member
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

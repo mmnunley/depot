@@ -1,18 +1,19 @@
 <% if notice %>
 <p id="notice"><%= notice %></p>
 <% end %>
-<%= pluralize(@counter, "item") %>
+<!--<%= pluralize(@counter, "item") %>-->
 <h1>Your Pragmatic Catalog</h1>
 
 <% @products.each do |product| %>
 	<div class="entry">
-		<%= link_to image_tag(product.image_url), line_items_path(:product_id => product),html_options = {:method => :post} %>
+		<%= link_to image_tag(product.image_url), line_items_path(:product_id => product), "data-method" => :post, "data-remote" => :remote %>
 		<h3><%= product.title %></h3>
 		<%= sanitize(product.description) %>
 		<div class="price_line">
 			<span class="price"><%= number_to_currency(product.price) %></span>
-			<!-- default action for button_to is POST -->
-			<%= button_to 'Add to Cart', line_items_path(:product_id => product) %>
+			<!-- default action for button_to is POST
+			The :remote will send an ajax request instead -->
+			<%= button_to 'Add to Cart', line_items_path(:product_id => product), :remote => true %>
 		</div>
 	</div>
 <% end %>

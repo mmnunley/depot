@@ -46,7 +46,16 @@ class ProductsControllerTest < ActionController::TestCase
     assert_redirected_to product_path(assigns(:product))
   end
 
-  test "should destroy product" do
+#Add a test ensuring that non-empty carts can't be deleted.
+   test "can't delete product in cart" do
+     assert_difference('Product.count', 0) do
+       delete :destroy, :id => products(:ruby).to_param
+     end
+  
+     assert_redirected_to products_path
+   end
+
+   test "should destroy product" do
     assert_difference('Product.count', -1) do
       delete :destroy, id: @product.to_param
     end
