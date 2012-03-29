@@ -29,4 +29,17 @@ Depot::Application.configure do
   config.assets.debug = true
   # TEMPORARY FIX
   config.log_level = :warn
+
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    :address        => "smtp.gmail.com",
+    :port           => 587,
+    #:domain         => "gmail.com",
+    :authentication => "plain",
+    :user_name      => "mnunley3",
+    :password       => "Iwbos6@1988",
+    :enable_starttls_auto => true
+  }
 end
