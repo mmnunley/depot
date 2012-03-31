@@ -1,0 +1,34 @@
+<div id="" class="depot_form">
+	<% if flash[:alert] %>
+		<p id="notice"><%= notice %></p>
+	<% end %>
+
+<!-- Form tag just builds a regular <form>. It uses text_field_tag
+and password_field_tag, two helpers that create HTML <input> tags
+Each helper takes 2 parameters. The first is the name to give
+to the field, and the second is the value with which to populate
+the field. This style of form allows us to associate values in the
+params structure directly with form fields-no model object is required.
+We chose to have the params object directly in the form. -->
+	<%= form_tag do %>
+		<fieldset>
+			<legend>Please Log In</legend>
+
+
+			<div>
+				<label for="name">Name:</label>
+				<%= text_field_tag :name, params[:name] %>
+			</div><!-- / -->
+
+			<div>
+				<label for="password">Password:</label>
+				<%= password_field_tag :password, params[:password] %>
+			</div><!-- / -->
+
+			<div>
+				<%= submit_tag "Login" %>
+			</div><!-- / -->
+
+		</fieldset>
+	<% end %>
+</div><!-- / -->

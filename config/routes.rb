@@ -1,10 +1,26 @@
 Depot::Application.routes.draw do
+  get 'admin' => 'admin#index', :as => 'admin'
+
+
+#Here since there is no database model behind it we have to 
+#define what the controller does with each action. We have to
+#tell it what to do with the "Get" and "Posts". The 3 actions
+#below are the 3 actions within the controller.
+  controller :sessions do
+    get 'login'     => :new
+    post 'login'    => :create
+    delete 'logout' => :destroy
+  end
+
+  resources :users
+
   resources :orders
 
   resources :line_items do
     put 'decrease', on: :member
     put 'increase', on: :member
   end
+
   resources :carts
 
   get "store/index"

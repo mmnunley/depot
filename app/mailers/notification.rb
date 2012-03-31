@@ -23,4 +23,12 @@ class Notification < ActionMailer::Base
     @order = order
     mail to: order.email, :subject => 'Pragmatic Store Order Shipped'
   end
+
+
+  def order_received2(order)
+    @order = order
+    # @greeting = "Hi"
+
+    mail to: order.email, :subject => 'Pragmatic Store Order Confirmation'
+  end
 end
